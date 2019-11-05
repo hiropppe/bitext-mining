@@ -1,12 +1,12 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
-RUN mkdir /root/_INSTALL
-
-WORKDIR /root/_INSTALL
-
 RUN sed -i.bak -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.jaist.ac.jp/pub/Linux/ubuntu/%g" /etc/apt/sources.list
 
 ENV TZ Asia/Tokyo
+
+RUN echo '# LANG' >> ~/.bashrc \
+ && echo 'export LANG=ja_JP.UTF-8' >> ~/.bashrc
+
 RUN apt-get update \
   && apt-get install -y tzdata \
   && rm -rf /var/lib/apt/lists/* \
@@ -34,9 +34,13 @@ RUN /opt/conda/bin/conda  install -y pytorch==1.2.0 torchvision==0.4.0 faiss-gpu
 
 RUN /opt/conda/bin/pip install Cython==0.29.6 transliterate==1.10.2 jieba==0.39
 
-RUN echo '# LANG' >> ~/.bashrc \
- && echo 'export LANG=ja_JP.UTF-8' >> ~/.bashrc
-
 WORKDIR /root
+
+RUN git clone https://github.com/facebookresearch/LASER.git
+##  RUN git checkout 311b25e  # commit hash when tested
+ENV LASER /root/LASER
+RUN echo "export LASER=$LASER" >> ~/.bashrc
+
+WORKDIR $LASER
 
 CMD [ "/bin/bash" ]
