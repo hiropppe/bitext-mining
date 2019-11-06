@@ -36,11 +36,30 @@ RUN /opt/conda/bin/pip install Cython==0.29.6 transliterate==1.10.2 jieba==0.39
 
 WORKDIR /root
 
+RUN git clone --depth 1 https://github.com/taku910/mecab && \
+    cd mecab/mecab && \
+    ./configure --enable-utf8-only && \
+    make && \
+    make check && \
+    make install && \
+    /opt/conda/bin/pip install --no-cache-dir mecab-python3 && \
+    ldconfig && \
+    cd ../mecab-ipadic && \
+    ./configure --with-charset=utf8 && \
+    make && \
+    make install
+
 RUN git clone https://github.com/facebookresearch/LASER.git
 ##  RUN git checkout 311b25e  # commit hash when tested
 ENV LASER /root/LASER
 RUN echo "export LASER=$LASER" >> ~/.bashrc
 
 WORKDIR $LASER
+
+#RUN /bin/bash ./install_models.sh
+#RUN /bin/bash ./install_external_tools.sh
+
+RUN mkdir -p ./tools-external/mecab/bin && \
+    ln -s /usr/local/bin/mecab /root/LASER/tools-external/mecab/bin/mecab
 
 CMD [ "/bin/bash" ]
