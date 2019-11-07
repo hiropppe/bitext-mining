@@ -61,7 +61,7 @@ def main(dataname, l1, l2):
         if i in gold_inds:
             mono_l2.append(opus_l2[i])
             mono_l1.append(opus_l1[i])
-            gold_ladder.append("{:d}\t{:d}".format(l2_size, l1_size))
+            gold_ladder.append("{:d}\t{:d}".format(l1_size, l2_size))
         elif i in mono_l2_inds:
             mono_l2.append(opus_l2[i])
         elif i in mono_l1_inds:
