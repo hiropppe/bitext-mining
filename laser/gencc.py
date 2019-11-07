@@ -126,7 +126,7 @@ def main(dataname, lang):
         for e in test_gold:
             print(e, file=f)
 
-    # for hunalign (l2-l1)
+    # for comparison to hunalign (l2-l1)
     with open("./{:s}/{:s}/{:s}-{:s}.training.hunalign.ladder".format(dataname.lower(), lang, l2, l1), "w") as f:
         for e in train_gold_ladder:
             print(e, file=f)
