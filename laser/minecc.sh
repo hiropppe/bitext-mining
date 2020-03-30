@@ -173,6 +173,6 @@ for lsrc in ${langs[@]} ; do
       --candidates ${edir}/${part}.candidates.tsv \
       --threshold ${th} --output ${extracted} \
       --gold ${ddir}/${lsrc}-${ltrg}/${lsrc}-${ltrg}.test.gold \
-      --verbose
+      --verbose | tee ${part}.log
   fi
 done
