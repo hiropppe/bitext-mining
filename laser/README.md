@@ -9,7 +9,7 @@ docker build -t laser .
 docker run --runtime nvidia -td --name laser --hostname laser --net host laser /bin/bash
 ```
 
-## Enter the container and install the LASER model and external tools.
+Enter the container and install the LASER model and external tools.  
 ```
 docker exec -it laser /bin/bash
 ```
