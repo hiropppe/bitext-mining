@@ -21,11 +21,7 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
 
-WORKDIR /root
-
-CMD [ "/bin/bash" ]
-
-RUN /opt/conda/bin/conda  install -y pytorch==1.2.0 torchvision==0.4.0 faiss-gpu==1.6.0 cudatoolkit=10.0 -c pytorch
+RUN /opt/conda/bin/conda install -y pytorch==1.2.0 torchvision==0.4.0 faiss-gpu==1.6.0 cudatoolkit=10.0 -c pytorch
 
 RUN /opt/conda/bin/pip install Cython==0.29.6 transliterate==1.10.2 jieba==0.39
 
